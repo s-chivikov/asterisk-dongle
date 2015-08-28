@@ -1,0 +1,2 @@
+# asterisk-dongle
+asterisk-dongle
