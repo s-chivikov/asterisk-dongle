@@ -12,11 +12,18 @@ This Docker container:
  - chan_dongle module for Asterisk 13 (https://github.com/oleg-krv/asterisk-chan-dongle )
  - Russian voice for Asterisk (https://github.com/pbxware/asterisk-sounds)
 
-
+You can mount usb devices in the container using privileged mode and the volumes option:
+```
+docker run -t -i --privileged -v /dev/bus/usb:/dev/bus/usb -d --name=asterisk -d -p 5060:5060  ssmonarch/asterisk-dongle
+```
+With current versions of docker, you can use the --device flag to achieve what you want, without needing to give access to all USB devices. For, example, if you wanted to make only /dev/ttyUSB0 accessible within your docker container, you could do something like:
+```
+docker run -t -i --device=/dev/ttyUSB0
+```
 ----------
 
 **dongle.conf**
-
+```
     [general]
     interval=15			; Number of seconds between trying to connect to devices
     ;------------------------------ JITTER BUFFER CONFIGURATION --------------------------
@@ -89,9 +96,9 @@ This Docker container:
     imsi=123456789012345
     ; if audio and data set together with imei and/or imsi audio and data has precedence
     ;   you can use both imei and imsi together in this case exact match by imei and imsi required
-
+```
 **extensions.conf**
-
+```
     ; this is chunks of Asterisk extensions.conf file for show some chan_dongle features
     [general]
     [dongle-incoming]
@@ -240,3 +247,4 @@ This Docker container:
         ;
         ; see also BUG !!! note above
     exten => s,n,Hangup
+```
