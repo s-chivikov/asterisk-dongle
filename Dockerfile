@@ -4,7 +4,7 @@ MAINTAINER Sergei S. Chivikov <sergei.chivikov@gmail.com>
 
 # Get all asterisk prerequsites 
 RUN apt-get update
-RUN apt-get install -y build-essential openssl libxml2-dev libncurses5-dev uuid-dev sqlite3 libsqlite3-dev pkg-config curl libjansson-dev automake unzip wget
+RUN apt-get install -y build-essential openssl libxml2-dev libncurses5-dev uuid-dev sqlite3 libsqlite3-dev pkg-config curl libjansson-dev automake unzip wget pciutils  usbutils  usb-modeswitch usb-modeswitch-data minicom nano
 
 # Download and decompress latest asterisk version
 RUN curl -s  http://downloads.asterisk.org/pub/telephony/certified-asterisk/certified-asterisk-13.1-current.tar.gz | tar xz
@@ -37,6 +37,5 @@ RUN unzip master.zip
 RUN cp -fr asterisk-sounds-additional-master/* /var/lib/asterisk/sounds/ru
 
 VOLUME /etc/asterisk
-EXPOSE 5060 10000-20000
 
 CMD ["/usr/sbin/asterisk", "-vvvvvvv"]
